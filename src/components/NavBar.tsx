@@ -175,9 +175,9 @@ const NavBar = ({ toggleSideNav = 0 }) => {
           <div className="flex flex-row items-center justify-end h-full py-1.5 ml-auto mr-2 space-x-1 md:ml-2">
             <button
               disabled={mounted && windowWidth > 768}
-              aria-label="show search"
+              aria-label="settings"
               className={
-                "flex md:hidden items-center justify-center flex-none w-10 h-full border border-transparent rounded-md outline-none hover:border-th-border"
+                "flex md:hidden items-center justify-center flex-none w-4 h-4 border border-transparent rounded-md outline-none hover:border-th-border"
               }
               onClick={(e) => {
                 e.preventDefault();
@@ -185,7 +185,7 @@ const NavBar = ({ toggleSideNav = 0 }) => {
                 setShowSearch((s) => !s);
               }}
             >
-              <AiOutlineSearch className="flex-none w-6 h-6" />
+              <AiOutlineSearch className="flex-none w-3 h-3" />
             </button>
             <div className="w-20 h-full">
               <SortMenu hide={hidden} />
