@@ -130,13 +130,19 @@ const NavBar = ({ toggleSideNav = 0 }) => {
         /> */}
         <SideNav visible={sidebarVisible} toggle={setSidebarVisible} />
         <nav className="relative flex flex-row items-center flex-grow h-12 shadow-lg bg-th-background2 md:justify-between ">
-          <CgMenu
-            className="flex-none w-10 h-10 cursor-pointer md:hidden"
+          <button
+            type="button"
+            aria-label={sidebarVisible ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={sidebarVisible}
+            aria-controls="mobile-navigation"
+            className="flex items-center justify-center flex-none w-10 h-10 rounded-md md:hidden"
             onClick={() => {
               setSidebarVisible((vis) => !vis);
               // plausible("sidenav");
             }}
-          />
+          >
+            <CgMenu className="w-8 h-8" aria-hidden="true" />
+          </button>
           <div className="flex flex-row items-center justify-start h-full mr-2 space-x-2">
             <Link href="/" passHref>
               <h1

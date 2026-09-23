@@ -70,7 +70,7 @@ const SideNav = ({ visible, toggle }) => {
         }
       >
         <div className="flex flex-row flex-none h-[100dvh] overscroll-y-contain">
-          <nav className="flex flex-col justify-between flex-grow w-3/5 px-2 pt-4 overflow-hidden border-r rounded-r-lg bg-th-background2 border-th-border ">
+          <nav id="mobile-navigation" className="flex flex-col justify-between flex-grow w-3/5 px-2 pt-4 overflow-hidden border-r rounded-r-lg bg-th-background2 border-th-border ">
             <div className="flex flex-col justify-start w-full h-full space-y-4 ">
               {/* <div
                 className="z-10 flex-none px-2 h-14"
@@ -101,10 +101,16 @@ const SideNav = ({ visible, toggle }) => {
                         <div className="" onClick={() => toggle()}>
                           <LoginProfile />
                         </div>
-                        <RiArrowGoBackLine
-                          onClick={() => toggle()}
-                          className="flex-none w-6 h-6 cursor-pointer "
-                        />
+                        {visible && (
+                          <button
+                            type="button"
+                            aria-label="Close navigation menu"
+                            className="flex items-center justify-center flex-none w-10 h-10 rounded-md"
+                            onClick={() => toggle(false)}
+                          >
+                            <RiArrowGoBackLine className="w-6 h-6" aria-hidden="true" />
+                          </button>
+                        )}
                       </div>
                       <div onClick={(e) => {
                         //toggle close if click on inner link
