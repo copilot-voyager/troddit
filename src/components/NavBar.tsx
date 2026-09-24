@@ -129,7 +129,7 @@ const NavBar = ({ toggleSideNav = 0 }) => {
           timeSinceNav={timeSinceNav}
         /> */}
         <SideNav visible={sidebarVisible} toggle={setSidebarVisible} />
-        <nav className="relative flex flex-row items-center flex-grow h-12 shadow-lg bg-th-background2 md:justify-between ">
+        <nav className="relative flex flex-row items-center flex-grow h-[60vh] shadow-lg bg-th-background2 md:justify-between ">
           <CgMenu
             className="flex-none w-10 h-10 cursor-pointer md:hidden"
             onClick={() => {
