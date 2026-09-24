@@ -94,14 +94,20 @@ To use login functionality the following environment variables need to be define
 ```sh
 CLIENT_ID=<ID of your Reddit app>
 CLIENT_SECRET=<Secret from your Reddit app>
-REDDIT_REDIRECT=<YOUR DOMAIN/api/auth/callback/reddit>
 NEXTAUTH_SECRET=<See https://next-auth.js.org/configuration/options#secret>
 NEXTAUTH_URL=http://localhost:3000
-SIGNING_PRIVATE_KEY=<See https://next-auth.js.org/v3/warnings, Generate with $jose newkey -s 256 -t oct -a HS512>
+JWT_SIGNING_PRIVATE_KEY=<Optional custom JWT signing key>
 ```
 
-To create a Reddit app visit [https://old.reddit.com/prefs/apps/](https://old.reddit.com/prefs/apps/).
-The redirect uri should match the REDDIT_REDIRECT variable.
+Reddit requires explicit Data API approval before accessing its API; follow [Reddit's Data API guidance](https://support.reddithelp.com/hc/en-us/articles/16160319875092-Reddit-Data-API-Wiki) to request access. Use an approved Reddit web app from [app preferences](https://www.reddit.com/prefs/apps/). Register `<NEXTAUTH_URL>/api/auth/callback/reddit` as its redirect URI (`http://localhost:3000/api/auth/callback/reddit` for local development). `REDDIT_REDIRECT` is not used by the application.
+
+### Vercel
+
+Connect `copilot-voyager/troddit` to a Next.js project with the repository root as its root directory. If the repository is not available to connect, an organization admin must grant the Vercel GitHub App access to it. Keep the default build and output settings: Vercel uses the package's `build` script, which runs Webpack to generate the PWA service worker. Connecting the repository gives `main` a production deployment and each PR a preview URL; it does not move the existing `troddit.com` domain.
+
+In the Vercel project settings, configure approved `CLIENT_ID` and `CLIENT_SECRET` for both Preview and Production so anonymous Reddit feeds can obtain app-only tokens. Without them, the site deploys but feeds cannot load. After the first Production deployment, find its stable domain under Settings > Domains; for production sign-in, configure `NEXTAUTH_SECRET`, set `NEXTAUTH_URL` in the Production environment to that exact origin, and register `<NEXTAUTH_URL>/api/auth/callback/reddit` in the Reddit app. Do not use a PR preview URL or the existing `troddit.com` domain unless you have intentionally assigned it to this deployment. PR preview URLs change per deployment, so use them for anonymous browsing rather than Reddit sign-in. Redeploy after changing environment variables; existing deployments do not pick up new values.
+
+Leave `NEXT_PUBLIC_ENABLE_API_LOG` unset unless you also configure `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` for that environment. Keep credentials in Vercel's environment settings, not in the repository.
 
 ## Docker
 
